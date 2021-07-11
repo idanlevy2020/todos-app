@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Task list</title>
+		<link rel="stylesheet" href="./index.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="header" class="header flex-col">
+				<main>
+					<div class="flex-row" style="justify-content:space-between; align-items: center;">
+						<h1> TODO </h1>
+						<button type="button" class="toggleBtnLighting"> </button>
+					</div>
+					<div id="addNewTask" class="addNewTask flex-row">
+						<input type="checkbox" id="addBtn">
+						<input id="text" type="text" placeholder="Curently typing..."/>
+					</div>
+					<div class="spinnerParent flex-row">
+						<span class="spinner"></span>
+					</div>
+					<ul id="list" class="list"></ul> <!-- list implemented in javaScript -->
+					<div class="actionsMenu flex-row">
+						<div>
+							<span id="activeItemsTotal">0</span>
+							<span>items left </span>
+						</div>
+						<div class="actions">                    
+							<button type="button" class="all"> All </button>
+							<button type="button" class="active"> Active </button>
+							<button type="button" class="completed"> Completed </button>
+						</div>
+						<button type="button" id="clearCompleted"> Clear Completed</button>
+					</div>
+					<div class="actions">                   
+						<button type="button" class="all"> All </button>
+						<button type="button" class="active"> Active </button>
+						<button type="button" class="completed"> Completed </button>
+					</div>
+				</main> <!-- end main-->
+			</div> <!-- end header-->
+		</div><!-- end app-->
+		<script type="module" src="./index.js"></script>
+		<script type="module" src="./render.js"></script>
+		<script type="module" src="./helpers.js"></script>
+	</body>
+</html>
