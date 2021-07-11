@@ -8,7 +8,6 @@ const listEl = document.getElementById("list");
 
 const activeItemsTotalEl = document.getElementById("activeItemsTotal");
 
-/********************** bottomMenu (EventListeners) **********************/
 const allBtn = document.getElementsByClassName("all");
 const completedBtn = document.getElementsByClassName("completed");
 const activeBtn = document.getElementsByClassName("active");
