@@ -4,7 +4,6 @@ import { renderTodo } from "./render.js";
 const addBtn = document.getElementById("addBtn");
 const textInput = document.getElementById("text");
 const listEl = document.getElementById("list");
-// const cardsEl = document.getElementById("cards");
 
 const activeItemsTotalEl = document.getElementById("activeItemsTotal");
 
