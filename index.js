@@ -120,7 +120,10 @@ addTask.addEventListener("click", function () {
       .then((response) => response.json())
       .then((json) => console.log(json));
     /***** end add to server post XMLHttpRequest */
-  } else if (val == "") alert("Error: your input is empty");
+  } else if ((val == "")&&(addTask.checked)){
+      addTask.checked = false;
+      alert("Error: your input is empty");
+  }
 });
 /**********end add new task **********/
 
