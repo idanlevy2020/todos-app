@@ -14,7 +14,6 @@ export function sumActive(total, todo) {
     return total;
 }
 
-
 export function darkMode() {
   //the function change html.className when user click on toggleLighting button
   let btn = document.querySelector(".toggleBtnLighting");

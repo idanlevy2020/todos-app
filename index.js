@@ -1,12 +1,14 @@
 import { createElement,sumActive,darkMode } from "./helpers.js";
-import { renderTodo } from "./render.js";
+import renderTodo from "./render.js";
 
-const addBtn = document.getElementById("addBtn");
-const textInput = document.getElementById("text");
-const listEl = document.getElementById("list");
+const addTask = document.getElementById("addTask");
+const inputNewTask = document.getElementById("inputNewTask");
+const listTodos = document.querySelector(".listTodos");
+// const cardsEl = document.getElementById("cards");
 
 const activeItemsTotalEl = document.getElementById("activeItemsTotal");
 
+/********************** bottomMenu (EventListeners) **********************/
 const allBtn = document.getElementsByClassName("all");
 const completedBtn = document.getElementsByClassName("completed");
 const activeBtn = document.getElementsByClassName("active");
@@ -48,11 +50,10 @@ clearCompletedBtn.addEventListener("click", function () {
 });
 /******************** end bottomMenu (EventListeners) *********************/
 
-function fechData(url) {
+function fetchData(url) {
   return new Promise(function (resolve, reject) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function onSuccess() {
-      console.log("document.readyState:", document.readyState);
       if (this.readyState == 4) {
         const data = JSON.parse(xhttp.responseText);
         resolve(data);
@@ -63,7 +64,7 @@ function fechData(url) {
       xhttp.open("GET", url, true);
       xhttp.send(); // send http request (async action)
     } catch (err) {
-      listEl.innerHTML = "<h3 style='color:red'>Error Data failed to load</h3>";
+      listTodos.innerHTML = "<h3 style='color:red'>Error Data failed to load</h3>";
       reject(new Error("Error Data failed to load"));
     }
   });
@@ -92,10 +93,10 @@ let items = localItems == true ? localItems : defaultItems;
 let filterState = "all"; // all, completed, active
 
 /********** add new task **********/
-addBtn.addEventListener("click", function () {
+addTask.addEventListener("click", function () {
   // add to list
-  const val = textInput.value;
-  if ((val != "")&&(addBtn.checked)) {
+  const val = inputNewTask.value;
+  if ((val != "")&&(addTask.checked)) {
     let num = defaultItems.length + 1;
     const new_task = {
       userId: Math.ceil((defaultItems.length + 1) / 20) /* number div 20 */,
@@ -119,11 +120,7 @@ addBtn.addEventListener("click", function () {
       .then((response) => response.json())
       .then((json) => console.log(json));
     /***** end add to server post XMLHttpRequest */
-  } else if (val == ""){
-    alert("Error: your input is empty");
-  } else if ((val != "")&&(!addBtn.checked)){
-    alert("Error: the checkbox unchecked");
-  } 
+  } else if (val == "") alert("Error: your input is empty");
 });
 /**********end add new task **********/
 
@@ -131,7 +128,7 @@ init();
 
 function init() {
   darkMode();
-  const promise = fechData("https://jsonplaceholder.typicode.com/todos");
+  const promise = fetchData("https://jsonplaceholder.typicode.com/todos");
 
   promise.then(function (data) {
     console.log("data from server:", data);
@@ -179,11 +176,8 @@ function filterItems(item) {
 // UI
 
 function render() {
-  console.log("render", filterState);
   const filteredItems = items.filter(filterItems); //what to display in list
   const activeItemsNumber = items.reduce(sumActive, 0); //what to display in list
-
-  console.log("filteredItems", filteredItems);
   renderList(filteredItems);
   activeItemsTotalEl.innerHTML = activeItemsNumber;
   // renderCards(items);
@@ -192,7 +186,7 @@ function render() {
 // const div = createElement({ root: app, className: "card", element: "div" });
 
 function renderList(array) {
-  listEl.innerHTML = ""; //clear
+  listTodos.innerHTML = ""; //clear
   array.forEach(function (item) {
     const li = renderTodo(item, {
       onRemove: function (item) {
@@ -205,7 +199,7 @@ function renderList(array) {
       item.completed = !item.completed;
       render();
     });
-    listEl.appendChild(li);
+    listTodos.appendChild(li);
   });
 }
 
